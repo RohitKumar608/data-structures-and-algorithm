@@ -36,10 +36,9 @@ class LinkedList {
       this.tail.next = node
       this.tail = node
     }
-    let count = 0
     let teamHead = this.head
-    while (count + 1 < index) {
-      count++
+    while (index > 1) {
+      index--
       teamHead = teamHead.next
     }
     const nextTemp = teamHead.next
