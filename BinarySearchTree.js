@@ -42,10 +42,4 @@ tree.insert(20)
 tree.insert(170)
 tree.insert(15)
 tree.insert(1)
-console.log(JSON.stringify(traverse(tree.root)))
-function traverse(node) {
-  const tree = { value: node.value }
-  tree.left = node.left === null ? null : traverse(node.left)
-  tree.right = node.right === null ? null : traverse(node.right)
-  return tree
-}
+console.log(tree.root)
