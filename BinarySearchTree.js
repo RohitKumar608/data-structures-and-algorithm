@@ -33,7 +33,22 @@ class BinarySearchTree {
       }
     }
   }
+
+  lookUp(value) {
+    if (this.root === null) return false
+    let tempRoot = this.root
+    while (tempRoot) {
+      if (tempRoot.value === value) return tempRoot
+      if (tempRoot.value > value) {
+        tempRoot = tempRoot.left
+      } else {
+        tempRoot = tempRoot.right
+      }
+    }
+    return false
+  }
 }
+
 const tree = new BinarySearchTree()
 tree.insert(9)
 tree.insert(4)
@@ -42,4 +57,7 @@ tree.insert(20)
 tree.insert(170)
 tree.insert(15)
 tree.insert(1)
+console.log(tree.lookUp(9))
+console.log(tree.lookUp(17))
+
 console.log(tree.root)
