@@ -75,6 +75,45 @@ class BinarySearchTree {
     recursive(queue)
     console.log(result)
   }
+  DFSInOrder() {
+    let root = this.root
+    const stack = []
+    const result = []
+    while (root || stack.length) {
+      while (root) {
+        stack.push(root)
+        root = root.left
+      }
+      root = stack.pop()
+      if (root) result.push(root.value)
+      root = root.right
+    }
+    console.log(result, 'inOrder')
+  }
+  DFSInPreOrder() {
+    let root = this.root
+    const stack = []
+    const result = []
+    while (root || stack.length) {
+      if (root) result.push(root.value)
+      if (root.right) stack.push(root.right)
+      if (root.left) stack.push(root.left)
+      root = stack.pop()
+    }
+    console.log(result, 'preOrder')
+  }
+  DFSInPostOrder() {
+    let root = this.root
+    let result = []
+    const postOrder = (root) => {
+      if (root === null) return
+      postOrder(root.left)
+      postOrder(root.right)
+      result.push(root.value)
+    }
+    postOrder(root)
+    console.log(result, 'postOrder')
+  }
 }
 
 const tree = new BinarySearchTree()
@@ -87,6 +126,9 @@ tree.insert(15)
 tree.insert(1)
 // console.log(tree.lookUp(9))
 // console.log(tree.lookUp(17))
-tree.breadthFirstSearch()
-tree.breadthFirstSearchRecursive()
+// tree.breadthFirstSearch()
+// tree.breadthFirstSearchRecursive()
+// tree.DFSInOrder()
+// tree.DFSInPreOrder()
+tree.DFSInPostOrder()
 // console.log(tree.root)
