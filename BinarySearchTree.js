@@ -90,6 +90,18 @@ class BinarySearchTree {
     }
     console.log(result, 'inOrder')
   }
+  DFSInOrderR() {
+    let root = this.root
+    let result = []
+    const postOrder = (root) => {
+      if (root === null) return
+      postOrder(root.left)
+      result.push(root.value)
+      postOrder(root.right)
+    }
+    postOrder(root)
+    console.log(result, 'inOrderR')
+  }
   DFSInPreOrder() {
     let root = this.root
     const stack = []
@@ -101,6 +113,19 @@ class BinarySearchTree {
       root = stack.pop()
     }
     console.log(result, 'preOrder')
+  }
+  DFSInPreOrderR() {
+    let root = this.root
+    let result = []
+    const postOrder = (root) => {
+      if (root === null) return
+      result.push(root.value)
+
+      postOrder(root.left)
+      postOrder(root.right)
+    }
+    postOrder(root)
+    console.log(result, 'preOrderR')
   }
   DFSInPostOrder() {
     let root = this.root
