@@ -10,8 +10,10 @@ class DoublyLinkedList {
   constructor() {
     this.head = null
     this.tail = null
+    this.length = 0
   }
   insert(val) {
+    this.length++
     const node = new Node(val)
     if (this.head === null) {
       this.head = node
@@ -22,6 +24,19 @@ class DoublyLinkedList {
       this.tail = node
     }
   }
+  pop() {
+    if (this.length === 0) {
+      this.tail = null
+      this.head = null
+      return undefined
+    }
+    this.length--
+    const deletedNode = this.tail
+    this.tail = deletedNode.prev
+    if (this.tail) this.tail.next = null
+    deletedNode.prev = null
+    return deletedNode
+  }
 }
 
 const linkedList = new DoublyLinkedList()
@@ -29,4 +44,8 @@ const linkedList = new DoublyLinkedList()
 linkedList.insert(1)
 linkedList.insert(2)
 linkedList.insert(3)
-console.log(linkedList)
+console.log(structuredClone(linkedList))
+console.log(linkedList.pop())
+console.log(linkedList.pop())
+console.log(linkedList.pop())
+console.log(linkedList.pop())
