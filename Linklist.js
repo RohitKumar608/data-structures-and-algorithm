@@ -45,6 +45,17 @@ class LinkedList {
     teamHead.next = node
     node.next = nextTemp
   }
+  reverse() {
+    let temp = this.head
+    let prevNode = null
+    while (temp) {
+      const currHead = temp
+      temp = temp.next
+      currHead.next = prevNode
+      prevNode = currHead
+    }
+    return prevNode
+  }
 }
 
 const linkedList = new LinkedList()
@@ -54,4 +65,5 @@ linkedList.insert(2)
 linkedList.insert(3)
 linkedList.prepend(0)
 linkedList.insertAt(2, 7)
-console.log(linkedList)
+console.log(structuredClone(linkedList))
+console.log(linkedList.reverse())
