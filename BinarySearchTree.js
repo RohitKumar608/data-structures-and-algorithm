@@ -42,7 +42,7 @@ class BinarySearchTree {
 
     function searchInsertPositionNode(root, direction = '') {
       if (root[direction] === null) return root
-      if (val > root.val) {
+      if (val > root.value) {
         return searchInsertPositionNode(root.right, 'right')
       } else {
         return searchInsertPositionNode(root.left, 'left')
@@ -66,6 +66,20 @@ class BinarySearchTree {
       }
     }
     return false
+  }
+  recursiveLookUp(value) {
+    const lookUp = (root) => {
+      if (root === null) return false
+
+      if (root.value === value) return true
+
+      if (root.value > value) {
+        return lookUp(root.left)
+      } else {
+        return lookUp(root.right)
+      }
+    }
+    return lookUp(this.root)
   }
   breadthFirstSearch() {
     const result = []
@@ -172,7 +186,7 @@ tree.recursiveInsertion(1)
 tree.recursiveInsertion(0)
 console.log(tree.recursiveInsertion(-1))
 // console.log(tree.lookUp(9))
-// console.log(tree.lookUp(17))
+console.log(tree.recursiveLookUp(17))
 // tree.breadthFirstSearch()
 // tree.breadthFirstSearchRecursive()
 // tree.DFSInOrder()
