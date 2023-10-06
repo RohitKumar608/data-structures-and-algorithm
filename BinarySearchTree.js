@@ -33,6 +33,26 @@ class BinarySearchTree {
       }
     }
   }
+  recursiveInsertion(val) {
+    const node = new Node(val)
+    if (this.root === null) {
+      this.root = node
+      return
+    }
+
+    function searchInsertPositionNode(root, direction = '') {
+      if (root[direction] === null) return root
+      if (val > root.val) {
+        return searchInsertPositionNode(root.right, 'right')
+      } else {
+        return searchInsertPositionNode(root.left, 'left')
+      }
+    }
+    const findNode = searchInsertPositionNode(this.root)
+    if (val > findNode.val) findNode.right = node
+    else findNode.left = node
+    return this
+  }
 
   lookUp(value) {
     if (this.root === null) return false
@@ -148,7 +168,9 @@ tree.insert(6)
 tree.insert(20)
 tree.insert(170)
 tree.insert(15)
-tree.insert(1)
+tree.recursiveInsertion(1)
+tree.recursiveInsertion(0)
+console.log(tree.recursiveInsertion(-1))
 // console.log(tree.lookUp(9))
 // console.log(tree.lookUp(17))
 // tree.breadthFirstSearch()
