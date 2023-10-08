@@ -127,13 +127,13 @@ class BinarySearchTree {
   DFSInOrderR() {
     let root = this.root
     let result = []
-    const postOrder = (root) => {
+    const inOrder = (root) => {
       if (root === null) return
-      postOrder(root.left)
+      inOrder(root.left)
       result.push(root.value)
-      postOrder(root.right)
+      inOrder(root.right)
     }
-    postOrder(root)
+    inOrder(root)
     console.log(result, 'inOrderR')
   }
   DFSInPreOrder() {
@@ -151,14 +151,14 @@ class BinarySearchTree {
   DFSInPreOrderR() {
     let root = this.root
     let result = []
-    const postOrder = (root) => {
+    const preOrder = (root) => {
       if (root === null) return
       result.push(root.value)
 
-      postOrder(root.left)
-      postOrder(root.right)
+      result(root.left)
+      preOrder(root.right)
     }
-    postOrder(root)
+    preOrder(root)
     console.log(result, 'preOrderR')
   }
   DFSInPostOrder() {
