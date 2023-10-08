@@ -19,6 +19,38 @@ class MaxBinaryHeap {
     }
     return this.values
   }
+  extractMax() {
+    if (this.values.length <= 1) return this.values.pop()
+    const popVal = this.values.pop()
+    const length = this.values.length - 1
+    this.values[0] = popVal
+    let parentIdx = 0
+    while (parentIdx < length) {
+      const [maxChildIdx, tempVal] = this.getMaxEleAndIdx(parentIdx)
+      if (
+        this.values[parentIdx] >= this.values[maxChildIdx] ||
+        maxChildIdx > length
+      ) {
+        break
+      }
+
+      this.values[maxChildIdx] = this.values[parentIdx]
+      this.values[parentIdx] = tempVal
+      parentIdx = maxChildIdx
+    }
+  }
+  getMaxEleAndIdx(parentIdx) {
+    const firstChild = 2 * parentIdx + 1
+    const secondChild = 2 * parentIdx + 2
+    const maxVal = Math.max(
+      this.values[firstChild] || 0,
+      this.values[secondChild] || 0
+    )
+    const maxChildIdx =
+      this.values[firstChild] === maxVal ? firstChild : secondChild
+    const tempVal = this.values[maxChildIdx]
+    return [maxChildIdx, tempVal]
+  }
 }
 
 const maxBinaryHeap = new MaxBinaryHeap()
@@ -30,4 +62,12 @@ const maxBinaryHeap = new MaxBinaryHeap()
 //   maxBinaryHeap.insert(i)
 // }
 maxBinaryHeap.insert(55)
-console.log(maxBinaryHeap)
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+maxBinaryHeap.extractMax()
+
+console.log(maxBinaryHeap.values)
