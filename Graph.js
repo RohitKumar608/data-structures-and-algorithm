@@ -6,9 +6,9 @@ class Graph {
   addVertex(node) {
     this.adjacentList[node] = []
   }
-  addEdge(node1, node2) {
-    this.adjacentList[node1].push(node2)
-    this.adjacentList[node2].push(node1)
+  addEdge(vertex1, vertex2) {
+    this.adjacentList[vertex1].push(vertex2)
+    this.adjacentList[vertex2].push(vertex1)
     this.numberOfNodes++
   }
   showConnections() {
@@ -20,8 +20,22 @@ class Graph {
       for (vertex of nodeConnections) {
         connections += vertex + ' '
       }
-      console.log(node + '--->' + connections)
     }
+  }
+  removeVertex(vertex1, vertex2) {
+    this.adjacentList[vertex1] = this.adjacentList[vertex1].filter(
+      (vertex) => vertex !== vertex2
+    )
+    this.adjacentList[vertex2] = this.adjacentList[vertex2].filter(
+      (vertex) => vertex !== vertex1
+    )
+  }
+  deleteVertex(vertex) {
+    while (this.adjacentList[vertex].length) {
+      const adjacentVertex = this.adjacentList[vertex].pop()
+      this.removeVertex(vertex, adjacentVertex)
+    }
+    delete this.adjacentList[vertex]
   }
 }
 
