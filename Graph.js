@@ -22,7 +22,7 @@ class Graph {
       }
     }
   }
-  removeVertex(vertex1, vertex2) {
+  removeEdge(vertex1, vertex2) {
     this.adjacentList[vertex1] = this.adjacentList[vertex1].filter(
       (vertex) => vertex !== vertex2
     )
@@ -30,33 +30,49 @@ class Graph {
       (vertex) => vertex !== vertex1
     )
   }
-  deleteVertex(vertex) {
+  removeVertex(vertex) {
     while (this.adjacentList[vertex].length) {
       const adjacentVertex = this.adjacentList[vertex].pop()
       this.removeVertex(vertex, adjacentVertex)
     }
     delete this.adjacentList[vertex]
   }
+  depthFirstRecursive(start) {
+    const result = []
+    const visitedVertex = {}
+    const traverse = (start) => {
+      if (!start) return null
+      result.push(start)
+      visitedVertex[start] = true
+      this.adjacentList[start].forEach((vertex) => {
+        if (!visitedVertex[vertex]) {
+          traverse(vertex)
+        }
+      })
+    }
+    traverse(start)
+    return result
+  }
 }
 
-const myGraph = new Graph()
-myGraph.addVertex('0')
-myGraph.addVertex('1')
-myGraph.addVertex('2')
-myGraph.addVertex('3')
-myGraph.addVertex('4')
-myGraph.addVertex('5')
-myGraph.addVertex('6')
-myGraph.addEdge('3', '1')
-myGraph.addEdge('3', '4')
-myGraph.addEdge('4', '2')
-myGraph.addEdge('4', '5')
-myGraph.addEdge('1', '2')
-myGraph.addEdge('1', '0')
-myGraph.addEdge('0', '2')
-myGraph.addEdge('6', '5')
+let g = new Graph()
 
-myGraph.showConnections()
+g.addVertex('A')
+g.addVertex('B')
+g.addVertex('C')
+g.addVertex('D')
+g.addVertex('E')
+g.addVertex('F')
+
+g.addEdge('A', 'B')
+g.addEdge('A', 'C')
+g.addEdge('B', 'D')
+g.addEdge('C', 'E')
+g.addEdge('D', 'E')
+g.addEdge('D', 'F')
+g.addEdge('E', 'F')
+console.log(g.depthFirstRecursive('A'))
+
 //Answer:
 // 0-->1 2
 // 1-->3 2 0
