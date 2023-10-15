@@ -53,6 +53,22 @@ class Graph {
     traverse(start)
     return result
   }
+  depthFirstIterative(start) {
+    const stack = [start]
+    let result = []
+    let visitedVertex = { [start]: true }
+    while (stack.length) {
+      const vertex = stack.pop()
+      result.push(vertex)
+      this.adjacentList[vertex].forEach((neighbor) => {
+        if (!visitedVertex[neighbor]) {
+          visitedVertex[neighbor] = true
+          stack.push(neighbor)
+        }
+      })
+    }
+    return result
+  }
 }
 
 let g = new Graph()
@@ -71,8 +87,9 @@ g.addEdge('C', 'E')
 g.addEdge('D', 'E')
 g.addEdge('D', 'F')
 g.addEdge('E', 'F')
-console.log(g.depthFirstRecursive('A'))
-
+// console.log(g.depthFirstRecursive('A'))
+console.log(g.depthFirstIterative('A'))
+console.log(g.breadthFirstIterative('A'))
 //Answer:
 // 0-->1 2
 // 1-->3 2 0
