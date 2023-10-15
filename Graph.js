@@ -69,6 +69,22 @@ class Graph {
     }
     return result
   }
+  breadthFirstSearch(start) {
+    const queue = [start]
+    let result = []
+    let visitedVertex = { [start]: true }
+    while (queue.length) {
+      const vertex = queue.shift()
+      result.push(vertex)
+      this.adjacentList[vertex].forEach((neighbor) => {
+        if (!visitedVertex[neighbor]) {
+          visitedVertex[neighbor] = true
+          queue.push(neighbor)
+        }
+      })
+    }
+    return result
+  }
 }
 
 let g = new Graph()
@@ -88,13 +104,15 @@ g.addEdge('D', 'E')
 g.addEdge('D', 'F')
 g.addEdge('E', 'F')
 // console.log(g.depthFirstRecursive('A'))
-console.log(g.depthFirstIterative('A'))
+// console.log(g.depthFirstIterative('A'))
 console.log(g.breadthFirstIterative('A'))
+
 //Answer:
-// 0-->1 2
-// 1-->3 2 0
-// 2-->4 1 0
-// 3-->1 4
-// 4-->3 2 5
-// 5-->4 6
-// 6-->5
+
+//          A
+//        /   \
+//       B     C
+//       |     |
+//       D --- E
+//        \   /
+//          F
